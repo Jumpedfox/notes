@@ -11,3 +11,7 @@ textarea {
 textarea:focus {
   outline: none;
 }
+
+textarea:disabled {
+  color: black;
+}

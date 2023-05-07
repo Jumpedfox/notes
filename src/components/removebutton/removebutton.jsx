@@ -3,9 +3,9 @@ import "./removebutton.css";
 import { NotesContext } from "../../contexts/notescontextprovider";
 
 const RemoveButton = () => {
-  const { deleteNote } = useContext(NotesContext);
+  const { deleteNote, selectedNote } = useContext(NotesContext);
   return (
-    <button className="remove-button" onClick={deleteNote}>
+    <button className="remove-button" disabled={!selectedNote} onClick={deleteNote}>
       rem
     </button>
   );

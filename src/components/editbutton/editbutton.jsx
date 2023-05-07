@@ -3,8 +3,8 @@ import "./editbutton.css";
 import { NotesContext } from "../../contexts/notescontextprovider";
 
 const EditButton = () => {
-  const {checkingF} = useContext(NotesContext)
-  return <button onClick={checkingF} className="edit-button">edi</button>;
+  const {selectedNote, handleEditButton} = useContext(NotesContext)
+  return <button disabled={!selectedNote} onClick={handleEditButton} className="edit-button">edi</button>;
 };
 
 export default EditButton;

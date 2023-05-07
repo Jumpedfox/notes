@@ -21,9 +21,15 @@ function NotesContextProvider(props) {
     setSelectedNote(note);
     setNewNoteIsOpen(false);
   };
+  
   const checkingF = () => {
     console.log(selectedNote);
   };
+
+  const [editingIsOn, setEditingIsOn] = useState(false)
+  const handleEditButton = () => {
+    setEditingIsOn(!editingIsOn)
+  }
 
   useEffect(() => {
     openDB(NOTES_DB_NAME, NOTES_DB_VERSION, {
@@ -102,6 +108,9 @@ function NotesContextProvider(props) {
     handleNoteClick,
     selectedNote,
     setSelectedNote,
+    editingIsOn, 
+    setEditingIsOn,
+    handleEditButton
   };
 
   return (

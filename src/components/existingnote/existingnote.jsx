@@ -3,7 +3,7 @@ import "./existingnote.css";
 import { NotesContext } from "../../contexts/notescontextprovider";
 
 const ExistingNote = () => {
-  const { selectedNote, updateNote } = useContext(NotesContext);
+  const { selectedNote, updateNote, editingIsOn, setEditingIsOn } = useContext(NotesContext);
   const [text, setText] = useState(selectedNote.text);
 
   useEffect(() => {
@@ -19,11 +19,12 @@ const ExistingNote = () => {
       ...selectedNote,
       text: text,
     });
+    setEditingIsOn(false)
   };
 
   return (
     <div className="existing-note">
-      <textarea value={text} onChange={handleTextChange} onBlur={handleBlur} />
+      <textarea disabled={!editingIsOn}  value={text} onChange={handleTextChange} onBlur={handleBlur} />
     </div>
   );
 };

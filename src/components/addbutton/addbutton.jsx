@@ -1,11 +1,15 @@
 import { useContext } from "react";
 import "./addbutton.css";
 import { NotesContext } from "../../contexts/notescontextprovider";
- 
+
 const AddButton = () => {
-  const { openNewNote } = useContext(NotesContext);
+  const { openNewNote, newNoteIsOpen } = useContext(NotesContext);
   return (
-    <button onClick={openNewNote} className="add-button">
+    <button
+      disabled={newNoteIsOpen}
+      onClick={openNewNote}
+      className="add-button"
+    >
       add
     </button>
   );

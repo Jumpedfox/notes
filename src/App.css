@@ -12,3 +12,12 @@
 .content-wrapper {
   display: flex;
 }
+
+button {
+  background-color: rebeccapurple;
+  margin-right: 20px;
+}
+
+button:disabled {
+  background-color: rgb(146, 146, 146);
+}
