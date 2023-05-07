@@ -1,5 +1,4 @@
 .remove-button {
-    width: 40px;
-    height: 40px;
-  }
-  
+  margin-right: 10px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/3976/3976961.png");
+}

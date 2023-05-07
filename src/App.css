@@ -15,25 +15,46 @@
 }
 
 button {
-  background-color: rebeccapurple;
-  margin-right: 20px;
+  background-color: rgb(255, 255, 255);
+  height: 30px;
+  min-width: 40px;
+  width: 70px;
+  border-radius: 4px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  transition: 0.2s;
 }
 
 button:disabled {
-  background-color: rgb(146, 146, 146);
+  background-color: rgb(155, 155, 155);
+}
+
+button:disabled:hover {
+  background-color: rgb(155, 155, 155);
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: rgb(201, 201, 201);
+  cursor: pointer;
 }
 
 .active-button {
-  background-color: rgb(51, 255, 0);
+  background-color: rgb(220, 255, 200);
 }
 
 textarea {
   border: none;
-  background-color: rgb(249, 255, 196);
+  background-color: transparent;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   resize: none;
+  padding: 10px;
+  font-family: "Pangolin", cursive;
 }
 
 textarea:focus {

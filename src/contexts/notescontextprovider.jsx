@@ -22,10 +22,6 @@ function NotesContextProvider(props) {
     setNewNoteIsOpen(false);
   };
 
-  const checkingF = () => {
-    console.log(selectedNote);
-  };
-
   const [editingIsOn, setEditingIsOn] = useState(false);
   const handleEditButton = () => {
     setEditingIsOn(!editingIsOn);
@@ -107,7 +103,6 @@ function NotesContextProvider(props) {
   };
 
   const contextValue = {
-    checkingF,
     notes,
     addNote,
     updateNote,

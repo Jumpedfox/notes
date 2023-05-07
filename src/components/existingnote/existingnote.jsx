@@ -27,12 +27,8 @@ const ExistingNote = () => {
     setEditingIsOn(false);
   }, [selectedNote]);
 
-  const qwe = (event) => {
-    console.log(event.target)
-  }
-
   return (
-    <div className="existing-note" onClick={qwe}>
+    <div className="existing-note">
       <textarea
         disabled={!editingIsOn}
         value={text}

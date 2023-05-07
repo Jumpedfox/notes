@@ -10,7 +10,6 @@ const AddButton = () => {
       onClick={openNewNote}
       className={`add-button ${newNoteIsOpen && "active-button"}`}
     >
-      add
     </button>
   );
 };

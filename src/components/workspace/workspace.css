@@ -1,5 +1,6 @@
 .workspace {
-    background-color: rgb(255, 196, 196);
+    background-image: url("https://img.freepik.com/free-photo/textured-background-white-tone_53876-128610.jpg?w=1380&t=st=1683484070~exp=1683484670~hmac=ef686fa03133e9304eb9c52728334b4407a9c966edb52ce61d6dc2eb30a17a92");
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
     width: 70%;
     height: 400px;
 }

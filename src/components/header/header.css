@@ -1,9 +1,15 @@
 .header {
-    background-color: rgb(223, 255, 196);
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 40px;
-    box-sizing: border-box;
+  background-image: url("https://img.freepik.com/free-photo/smooth-white-stucco-wall_1194-6786.jpg?w=1380&t=st=1683484062~exp=1683484662~hmac=a8ceec1bea3ea059882c5addfc7426fd35189a435efbec95ad268ca7f30a6af9");
+  box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding-right: 30px;
+}
+
+.header div {
+  width: 30%;
 }
