@@ -1,18 +1,21 @@
 import "./App.css";
-import Sidebar from "./sidebar/sidebar";
-import Header from "./header/header.jsx";
-import Workspace from "./workspace/workspace.jsx";
+import Header from "./components/header/header";
+import Sidebar from "./components/sidebar/sidebar";
+import Workspace from "./components/workspace/workspace";
+import NotesContextProvider from "./contexts/notescontextprovider";
 
 function App() {
   return (
     <div className="App">
-      <div className="app-wrapper">
-        <Header />
-        <div className="content-wrapper">
-          <Sidebar />
-          <Workspace />
+      <NotesContextProvider>
+        <div className="app-wrapper">
+          <Header />
+          <div className="content-wrapper">
+            <Sidebar />
+            <Workspace />
+          </div>
         </div>
-      </div>
+      </NotesContextProvider>
     </div>
   );
 }
