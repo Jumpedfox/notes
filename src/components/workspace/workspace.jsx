@@ -7,6 +7,7 @@ import ExistingNote from "../existingnote/existingnote";
 const Workspace = () => {
   const { newNoteIsOpen, selectedNote, setSelectedNote } =
     useContext(NotesContext);
+
   return (
     <div className="workspace">
       {newNoteIsOpen && <NewNote />}

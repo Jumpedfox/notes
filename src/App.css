@@ -21,3 +21,7 @@ button {
 button:disabled {
   background-color: rgb(146, 146, 146);
 }
+
+.active-button {
+  background-color: rgb(51, 255, 0);
+}

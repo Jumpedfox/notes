@@ -21,15 +21,21 @@ function NotesContextProvider(props) {
     setSelectedNote(note);
     setNewNoteIsOpen(false);
   };
-  
+
   const checkingF = () => {
     console.log(selectedNote);
   };
 
-  const [editingIsOn, setEditingIsOn] = useState(false)
+  const [editingIsOn, setEditingIsOn] = useState(false);
   const handleEditButton = () => {
-    setEditingIsOn(!editingIsOn)
-  }
+    setEditingIsOn(!editingIsOn);
+  };
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredNotes = notes.filter((note) =>
+    note.text.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     openDB(NOTES_DB_NAME, NOTES_DB_VERSION, {
@@ -108,9 +114,12 @@ function NotesContextProvider(props) {
     handleNoteClick,
     selectedNote,
     setSelectedNote,
-    editingIsOn, 
+    editingIsOn,
     setEditingIsOn,
-    handleEditButton
+    handleEditButton,
+    searchTerm,
+    setSearchTerm,
+    filteredNotes,
   };
 
   return (
