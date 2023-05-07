@@ -10,7 +10,7 @@ const Sidebar = () => {
       <ul>
         {notes.map((note) => (
           <li key={note.id} onClick={() => handleNoteClick(note)}>
-            <p>{note.text.substring(0, 20)}...</p>
+            <span>{note.text.substring(0, 20)}...</span>
           </li>
         ))}
       </ul>

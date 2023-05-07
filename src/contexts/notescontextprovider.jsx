@@ -22,7 +22,7 @@ function NotesContextProvider(props) {
     setNewNoteIsOpen(false);
   };
   const checkingF = () => {
-    console.log(notes);
+    console.log(selectedNote);
   };
 
   useEffect(() => {
@@ -77,9 +77,12 @@ function NotesContextProvider(props) {
       const db = await openDB(NOTES_DB_NAME, NOTES_DB_VERSION);
       const transaction = db.transaction(NOTES_STORE_NAME, "readwrite");
       const store = transaction.objectStore(NOTES_STORE_NAME);
-      await store.delete(id);
-      const remainingNotes = notes.filter((note) => note.id !== id);
+      await store.delete(selectedNote.id);
+      const remainingNotes = notes.filter(
+        (note) => note.id !== selectedNote.id
+      );
       setNotes(remainingNotes);
+      setSelectedNote(null);
     } catch (error) {
       console.error("Failed to delete note from database", error);
     }
@@ -98,8 +101,7 @@ function NotesContextProvider(props) {
     setExistingNoteIsOpen,
     handleNoteClick,
     selectedNote,
-    setSelectedNote
-
+    setSelectedNote,
   };
 
   return (

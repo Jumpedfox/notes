@@ -7,7 +7,7 @@ const NewNote = () => {
   const noteRef = useRef("");
 
   const handleAddNote = () => {
-    addNote({ text: noteRef.current });
+    noteRef.current.length > 0 && addNote({ text: noteRef.current });
   };
 
   const handleInputChange = (event) => {

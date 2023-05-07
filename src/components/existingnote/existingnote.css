@@ -1,4 +1,13 @@
-.new-note {
+.existing-note {
   height: 100%;
   width: 100%;
+  resize: none;
+}
+
+textarea {
+  border: none;
+}
+
+textarea:focus {
+  outline: none;
 }
