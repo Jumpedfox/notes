@@ -22,7 +22,7 @@ const NewNote = () => {
 
   return (
     <div className="new-note">
-      <textarea name="note" onChange={handleInputChange} ></textarea>
+      <textarea placeholder="Your note..." name="note" onChange={handleInputChange} ></textarea>
     </div>
   );
 };

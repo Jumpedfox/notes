@@ -6,12 +6,11 @@ const AddButton = () => {
   const { openNewNote, newNoteIsOpen } = useContext(NotesContext);
   return (
     <button
-      // disabled={newNoteIsOpen}
       onClick={openNewNote}
       className={`add-button ${newNoteIsOpen && "active-button"}`}
     >
     </button>
-  );
+  ); 
 };
 
 export default AddButton;
