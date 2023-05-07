@@ -9,7 +9,7 @@ const Sidebar = () => {
   const handleClick = (event) => {
     event.target.tagName !== "LI" &&
       event.target.tagName !== "SPAN" &&
-      setSelectedNote(null);
+      setSelectedNote(null)
   };
 
   return (

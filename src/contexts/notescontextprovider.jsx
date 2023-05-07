@@ -37,6 +37,11 @@ function NotesContextProvider(props) {
     note.text.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
+  const toggleShowRemoveModadl = () => {
+    setShowRemoveModal(!showRemoveModal);
+  };
+
   useEffect(() => {
     openDB(NOTES_DB_NAME, NOTES_DB_VERSION, {
       upgrade(db) {
@@ -95,6 +100,7 @@ function NotesContextProvider(props) {
       );
       setNotes(remainingNotes);
       setSelectedNote(null);
+      toggleShowRemoveModadl();
     } catch (error) {
       console.error("Failed to delete note from database", error);
     }
@@ -120,6 +126,9 @@ function NotesContextProvider(props) {
     searchTerm,
     setSearchTerm,
     filteredNotes,
+    showRemoveModal,
+    setShowRemoveModal,
+    toggleShowRemoveModadl,
   };
 
   return (

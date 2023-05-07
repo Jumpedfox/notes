@@ -7,6 +7,7 @@
 .app-wrapper {
   width: 100%;
   max-width: 1000px;
+  position: relative;
 }
 
 .content-wrapper {
@@ -24,4 +25,21 @@ button:disabled {
 
 .active-button {
   background-color: rgb(51, 255, 0);
+}
+
+textarea {
+  border: none;
+  background-color: rgb(249, 255, 196);
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+textarea:disabled {
+  color: black;
 }

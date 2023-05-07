@@ -3,15 +3,3 @@
   width: 100%;
   resize: none;
 }
-
-textarea {
-  border: none;
-}
-
-textarea:focus {
-  outline: none;
-}
-
-textarea:disabled {
-  color: black;
-}
