@@ -6,10 +6,31 @@ import Workspace from "../workspace/workspace";
 import RemoveModal from "../removemodal/removemodal";
 
 const AppWrapper = () => {
-  const { showRemoveModal } = useContext(NotesContext);
+  const {
+    notes,
+    showRemoveModal,
+    browserNotes,
+    setNotes,
+    remoteDatabaseIsOn,
+    setRemoteDatabaseIsOn,
+    reduxNotes,
+  } = useContext(NotesContext);
+
+  const hanldeClick = () => {
+    setRemoteDatabaseIsOn(!remoteDatabaseIsOn);
+    if (remoteDatabaseIsOn) {
+      setNotes(browserNotes);
+    } else {
+      setNotes(reduxNotes);
+    }
+  };
+
   return (
     <div className="app-wrapper">
       {showRemoveModal && <RemoveModal />}
+      <button onClick={hanldeClick}>
+        {remoteDatabaseIsOn ? "remote" : "browser"} database
+      </button>
       <Header />
       <div className="content-wrapper">
         <Sidebar />
