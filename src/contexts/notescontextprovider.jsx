@@ -233,7 +233,7 @@ function NotesContextProvider(props) {
       .catch((error) => {
         console.error("Failed to open notes database", error);
       });
-    // getRemoteNotes();
+    getRemoteNotes();
   }, []);
 
   const contextValue = {
