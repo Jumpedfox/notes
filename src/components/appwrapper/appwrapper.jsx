@@ -7,7 +7,6 @@ import RemoveModal from "../removemodal/removemodal";
 
 const AppWrapper = () => {
   const {
-    notes,
     showRemoveModal,
     browserNotes,
     setNotes,

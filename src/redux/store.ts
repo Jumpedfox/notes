@@ -8,7 +8,7 @@ import interfaceSlice from './reducers/index.ts';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['interfaceSlice'] // сохраняем только состояние интерфейса
+  whitelist: ['interfaceSlice']
 };
 
 const rootReducer = combineReducers({
