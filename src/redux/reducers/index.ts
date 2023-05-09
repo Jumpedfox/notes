@@ -16,10 +16,10 @@ const interfaceSlice = createSlice({
       state.notes = [...state.notes, action.payload];
     },
     editNoteRedux: (state, action) => {
-      state.notes = state.notes.map(note => note.id === action.payload.id ? action.payload : note);
+      state.notes = state.notes.map(note => note.index === action.payload.index ? action.payload : note);
     },
     removeNoteRedux: (state, action) => {
-      state.notes = state.notes.filter(note => note.id !== action.payload);
+      state.notes = state.notes.filter(note => note.index !== action.payload);
     }
   },
   extraReducers: {},

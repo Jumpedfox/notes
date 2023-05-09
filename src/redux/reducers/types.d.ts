@@ -1,5 +1,5 @@
 interface Note {
-  id: number;
+  index: string;
   text: string;
 }
 

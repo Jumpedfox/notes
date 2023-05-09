@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import "./sidebar.css";
 import { NotesContext } from "../../contexts/notescontextprovider";
+import { nanoid } from "nanoid";
 
 const Sidebar = () => {
   const {
@@ -24,9 +25,9 @@ const Sidebar = () => {
         {filteredNotes.map((listItem) => (
           <li
             className={`${
-              selectedNote && selectedNote.id === listItem.id && "selected-li"
+              selectedNote && selectedNote.index === listItem.index && "selected-li"
             }`}
-            key={listItem.id}
+            key={nanoid(4)}
             onClick={() => handleNoteClick(listItem)}
           >
             <span>

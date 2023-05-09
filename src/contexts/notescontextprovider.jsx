@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addAllNotesRedux,
   addNoteRedux,
+  editNoteRedux,
   removeNoteRedux,
 } from "../redux/reducers/index.ts";
 import { nanoid } from "nanoid";
@@ -32,9 +33,8 @@ function NotesContextProvider(props) {
           `https://quintadb.com/apps/${ENTITY_ID}/dtypes/entity/${TABLE_ID}.json?rest_api_key=${API_KEY}&view=&per_page=200`
         )
         .then((response) => {
-          console.log(response.data.records);
           const reworkedObject = response.data.records.map((obj) => ({
-            index: obj.values.adW51WWQfdVRldOMJcJ8kL,
+            index: obj.id,
             text: obj.values.crWPqcW5bfW4uWmJrVuwH8,
           }));
           dispatch(addAllNotesRedux(reworkedObject));
@@ -46,8 +46,6 @@ function NotesContextProvider(props) {
       console.error(error);
     }
   };
-
-  console.log(reduxNotes);
 
   const [remoteNotes, setRemoteNotes] = useState([]);
   const [browserNotes, setBrowserNotes] = useState([]);
@@ -94,33 +92,45 @@ function NotesContextProvider(props) {
       }
     } else if (remoteDatabaseIsOn) {
       try {
-        const qwe = {
-          entity_id: `${ENTITY_ID}`,
-            crWPqcW5bfW4uWmJrVuwH8: note.text,
-            adW51WWQfdVRldOMJcJ8kL: nanoid(10)
-        }
+        const payloadObj = {
+          entity_id: `${TABLE_ID}`,
+          crWPqcW5bfW4uWmJrVuwH8: note.text,
+        };
         const payload = {
           rest_api_key: API_KEY,
-          values: qwe
-          // values: {
-          //   entity_id: "ddLJldJSjaW4ddQf1nC8og",
-          //   crWPqcW5bfW4uWmJrVuwH8: note.text,
-          //   adW51WWQfdVRldOMJcJ8kL: nanoid(10)
-          // },
+          values: payloadObj,
         };
-        axios
-          .post(
-            `https://quintadb.com/apps/${ENTITY_ID}/dtypes.json`,
-            payload,
-            { headers: { "Content-Type": "application/json" } }
-          )
-          .then(() => {
-            dispatch(addNoteRedux({ text: qwe.crWPqcW5bfW4uWmJrVuwH8, id: qwe.adW51WWQfdVRldOMJcJ8kL }));
-          });
+        const res = await axios.post(
+          `https://quintadb.com/apps/${ENTITY_ID}/dtypes.json`,
+          payload,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (res) {
+          dispatch(
+            addNoteRedux({
+              text: res.data.record.values.crWPqcW5bfW4uWmJrVuwH8,
+              index: res.data.record.id,
+            })
+          );
+        }
       } catch (error) {
         console.error("Failed to add data to remote database", error);
       }
     }
+  };
+
+  const qqq = {
+    record: {
+      id: "aqW4BcPCjifOotCqvyW5GU",
+      app_id: "cBt8oQWPDdS4oqj8oiW68l",
+      entity_id: "dcRCoRrCjjWQ1CWPFdKYOD",
+      values: { crWPqcW5bfW4uWmJrVuwH8: "q" },
+      approved: false,
+      created_at: "2023-05-08T19:46:20.000-05:00",
+      updated_at: "2023-05-08T19:46:20.000-05:00",
+    },
   };
 
   useEffect(() => {
@@ -128,27 +138,51 @@ function NotesContextProvider(props) {
   }, [remoteDatabaseIsOn, reduxNotes]);
 
   const updateNote = async (note) => {
-    try {
-      const db = await openDB(NOTES_DB_NAME, NOTES_DB_VERSION);
-      const transaction = db.transaction(NOTES_STORE_NAME, "readwrite");
-      const store = transaction.objectStore(NOTES_STORE_NAME);
-      await store.put(note);
-      const updatedNotes = notes.map((n) => (n.id === note.id ? note : n));
-      setNotes(updatedNotes);
-    } catch (error) {
-      console.error("Failed to update note in database", error);
-    }
-  };
-
-  const deleteNote = async (id) => {
     if (!remoteDatabaseIsOn) {
       try {
         const db = await openDB(NOTES_DB_NAME, NOTES_DB_VERSION);
         const transaction = db.transaction(NOTES_STORE_NAME, "readwrite");
         const store = transaction.objectStore(NOTES_STORE_NAME);
-        await store.delete(selectedNote.id);
+        await store.put(note);
+        const updatedNotes = notes.map((n) => (n.id === note.id ? note : n));
+        setNotes(updatedNotes);
+      } catch (error) {
+        console.error("Failed to update note in database", error);
+      }
+    } else if (remoteDatabaseIsOn) {
+      try {
+        const payload = {
+          values: {
+            crWPqcW5bfW4uWmJrVuwH8: note.text,
+          },
+        };
+        await axios
+          .put(
+            `https://quintadb.com/apps/${ENTITY_ID}/dtypes/${selectedNote.index}.json?rest_api_key=${API_KEY}`,
+            payload,
+            { headers: { "Content-Type": "application/json" } }
+          )
+          .then(() => {
+            dispatch(editNoteRedux(note));
+          })
+          .then(() => {
+            console.log("Data updated successfully.");
+          });
+      } catch (error) {
+        console.error("Failed to update data in remote database", error);
+      }
+    }
+  };
+
+  const deleteNote = async () => {
+    if (!remoteDatabaseIsOn) {
+      try {
+        const db = await openDB(NOTES_DB_NAME, NOTES_DB_VERSION);
+        const transaction = db.transaction(NOTES_STORE_NAME, "readwrite");
+        const store = transaction.objectStore(NOTES_STORE_NAME);
+        await store.delete(selectedNote.index);
         const remainingNotes = notes.filter(
-          (note) => note.id !== selectedNote.id
+          (note) => note.id !== selectedNote.index
         );
         setNotes(remainingNotes);
         setSelectedNote(null);
@@ -158,21 +192,20 @@ function NotesContextProvider(props) {
       }
     } else if (remoteDatabaseIsOn) {
       try {
-        const noteToDeleteId = id;
-        const payload = {
-          rest_api_key: API_KEY,
-          filters: {
-            ddLJldJSjaW4ddQf1nC8og: {
-              op: "=",
-              value: noteToDeleteId,
-            },
-          },
-        };
+        const payload = {};
         axios
           .delete(
-            "https://quintadb.com/apps/bdW41eqGHeWQy5gCkbimkq/dtypes.json",
+            `https://quintadb.com/apps/${ENTITY_ID}/dtypes/${selectedNote.index}.json?rest_api_key=${API_KEY}`,
             { headers: { "Content-Type": "application/json" }, data: payload }
           )
+          .then(() => {
+            dispatch(removeNoteRedux(selectedNote.index));
+            setSelectedNote(null);
+            toggleShowRemoveModadl();
+          })
+          .then(() => {
+            console.log("Data deleted successfully.");
+          });
       } catch (error) {
         console.error("Failed to delete data from remote database", error);
       }
@@ -200,7 +233,7 @@ function NotesContextProvider(props) {
       .catch((error) => {
         console.error("Failed to open notes database", error);
       });
-    getRemoteNotes();
+    // getRemoteNotes();
   }, []);
 
   const contextValue = {
