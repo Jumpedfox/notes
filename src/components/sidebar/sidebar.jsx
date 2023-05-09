@@ -33,6 +33,8 @@ const Sidebar = () => {
       selectedNote.index === listItem.index
     ) {
       return "selected-li";
+    } else {
+      return "";
     }
   };
 
@@ -48,7 +50,7 @@ const Sidebar = () => {
             <span>
               {listItem.text.length <= 20
                 ? listItem.text
-                : listItem.text.substring(0, 20) + "..."}
+                : listItem.text.substring(0, 19) + "..."}
             </span>
           </li>
         ))}

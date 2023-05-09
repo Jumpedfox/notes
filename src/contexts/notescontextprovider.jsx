@@ -8,7 +8,6 @@ import {
   editNoteRedux,
   removeNoteRedux,
 } from "../redux/reducers/index.ts";
-import { nanoid } from "nanoid";
 
 const NOTES_STORE_NAME = "notes";
 const NOTES_DB_NAME = "notes_db";
