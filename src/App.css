@@ -66,3 +66,9 @@ textarea:focus {
 textarea:disabled {
   color: black;
 }
+
+.switch-db-button {
+  width: 300px;
+  font-size: 15px;
+  font-family: "Pangolin", cursive;
+}

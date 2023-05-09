@@ -3,9 +3,21 @@ import "./searchbar.css";
 import { NotesContext } from "../../contexts/notescontextprovider";
 
 const Searchbar = () => {
-  const { searchTerm, setSearchTerm } = useContext(NotesContext);
+  const {
+    searchTerm,
+    setSearchTerm,
+    setNewNoteIsOpen,
+    newNoteIsOpen,
+    editingIsOn,
+    setEditingIsOn,
+  } = useContext(NotesContext);
+
+  const handleInputClick = () => {
+    newNoteIsOpen && setNewNoteIsOpen(false);
+    editingIsOn && setEditingIsOn(false);
+  };
   return (
-    <div>
+    <div onClick={() => handleInputClick()}>
       <input
         className="searchbar"
         type="text"

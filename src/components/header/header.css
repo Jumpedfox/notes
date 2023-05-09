@@ -8,6 +8,8 @@
   align-items: center;
   box-sizing: border-box;
   padding-right: 8px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .header div {

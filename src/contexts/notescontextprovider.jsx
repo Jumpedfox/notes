@@ -75,7 +75,7 @@ function NotesContextProvider(props) {
   );
 
   const [showRemoveModal, setShowRemoveModal] = useState(false);
-  const toggleShowRemoveModadl = () => {
+  const toggleShowRemoveModal = () => {
     setShowRemoveModal(!showRemoveModal);
   };
 
@@ -121,21 +121,10 @@ function NotesContextProvider(props) {
     }
   };
 
-  const qqq = {
-    record: {
-      id: "aqW4BcPCjifOotCqvyW5GU",
-      app_id: "cBt8oQWPDdS4oqj8oiW68l",
-      entity_id: "dcRCoRrCjjWQ1CWPFdKYOD",
-      values: { crWPqcW5bfW4uWmJrVuwH8: "q" },
-      approved: false,
-      created_at: "2023-05-08T19:46:20.000-05:00",
-      updated_at: "2023-05-08T19:46:20.000-05:00",
-    },
-  };
-
   useEffect(() => {
     remoteDatabaseIsOn && setNotes(reduxNotes);
   }, [remoteDatabaseIsOn, reduxNotes]);
+
 
   const updateNote = async (note) => {
     if (!remoteDatabaseIsOn) {
@@ -176,17 +165,18 @@ function NotesContextProvider(props) {
 
   const deleteNote = async () => {
     if (!remoteDatabaseIsOn) {
+      console.log(selectedNote);
       try {
         const db = await openDB(NOTES_DB_NAME, NOTES_DB_VERSION);
         const transaction = db.transaction(NOTES_STORE_NAME, "readwrite");
         const store = transaction.objectStore(NOTES_STORE_NAME);
-        await store.delete(selectedNote.index);
+        await store.delete(selectedNote.id);
         const remainingNotes = notes.filter(
-          (note) => note.id !== selectedNote.index
+          (note) => note.id !== selectedNote.id
         );
         setNotes(remainingNotes);
         setSelectedNote(null);
-        toggleShowRemoveModadl();
+        toggleShowRemoveModal();
       } catch (error) {
         console.error("Failed to delete note from database", error);
       }
@@ -201,7 +191,7 @@ function NotesContextProvider(props) {
           .then(() => {
             dispatch(removeNoteRedux(selectedNote.index));
             setSelectedNote(null);
-            toggleShowRemoveModadl();
+            toggleShowRemoveModal();
           })
           .then(() => {
             console.log("Data deleted successfully.");
@@ -258,7 +248,7 @@ function NotesContextProvider(props) {
     filteredNotes,
     showRemoveModal,
     setShowRemoveModal,
-    toggleShowRemoveModadl,
+    toggleShowRemoveModal,
     browserNotes,
     setBrowserNotes,
     remoteNotes,

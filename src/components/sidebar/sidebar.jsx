@@ -10,6 +10,7 @@ const Sidebar = () => {
     setSelectedNote,
     selectedNote,
     setNewNoteIsOpen,
+    remoteDatabaseIsOn,
   } = useContext(NotesContext);
 
   const handleClick = (event) => {
@@ -19,14 +20,28 @@ const Sidebar = () => {
     setNewNoteIsOpen(false);
   };
 
+  const handleLiSelection = (listItem) => {
+    if (
+      !remoteDatabaseIsOn &&
+      selectedNote &&
+      selectedNote.id === listItem.id
+    ) {
+      return "selected-li";
+    } else if (
+      remoteDatabaseIsOn &&
+      selectedNote &&
+      selectedNote.index === listItem.index
+    ) {
+      return "selected-li";
+    }
+  };
+
   return (
     <section className="sidebar" onClick={handleClick}>
       <ul>
         {filteredNotes.map((listItem) => (
           <li
-            className={`${
-              selectedNote && selectedNote.index === listItem.index && "selected-li"
-            }`}
+            className={`${handleLiSelection(listItem)}`}
             key={nanoid(4)}
             onClick={() => handleNoteClick(listItem)}
           >

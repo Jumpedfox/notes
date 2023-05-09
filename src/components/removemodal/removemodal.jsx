@@ -5,7 +5,7 @@ import { NotesContext } from "../../contexts/notescontextprovider";
 const RemoveModal = () => {
   const {
     deleteNote,
-    toggleShowRemoveModadl,
+    toggleShowRemoveModal,
   } = useContext(NotesContext);
   return (
     <section className="remove-modal">
@@ -13,7 +13,7 @@ const RemoveModal = () => {
         <span>Remove the note?</span>
         <div>
           <button onClick={deleteNote}>yes</button>
-          <button onClick={toggleShowRemoveModadl}>no</button>
+          <button onClick={toggleShowRemoveModal}>no</button>
         </div>
       </div>
     </section>

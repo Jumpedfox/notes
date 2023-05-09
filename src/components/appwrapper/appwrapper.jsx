@@ -14,10 +14,18 @@ const AppWrapper = () => {
     remoteDatabaseIsOn,
     setRemoteDatabaseIsOn,
     reduxNotes,
+    newNoteIsOpen,
+    setNewNoteIsOpen,
+    editingIsOn,
+    setEditingIsOn,
+    setSelectedNote
   } = useContext(NotesContext);
 
   const hanldeClick = () => {
     setRemoteDatabaseIsOn(!remoteDatabaseIsOn);
+    newNoteIsOpen && setNewNoteIsOpen(false);
+    editingIsOn && setEditingIsOn(false)
+    setSelectedNote(null);
     if (remoteDatabaseIsOn) {
       setNotes(browserNotes);
     } else {
@@ -28,8 +36,8 @@ const AppWrapper = () => {
   return (
     <div className="app-wrapper">
       {showRemoveModal && <RemoveModal />}
-      <button onClick={hanldeClick}>
-        {remoteDatabaseIsOn ? "remote" : "browser"} database
+      <button className="switch-db-button" onClick={hanldeClick}>
+        {remoteDatabaseIsOn ? "Remote" : "Browser"} DB, click to switch to {!remoteDatabaseIsOn ? "Remote" : "Browser"} DB
       </button>
       <Header />
       <div className="content-wrapper">
